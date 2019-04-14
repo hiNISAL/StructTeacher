@@ -23,17 +23,25 @@ class Teacher {
       if (Array.isArray(v)) {
         // 新对象当前这个k设置为空数组
         newData[k] = [];
-
+        // console.log(sourceData);
         sourceData[k].forEach((item, index) => {
           if (model[k][0].all) {
             model[k][index] = model[k][0];
           }
-          if (model[k][index].type && [String, Number, Boolean].includes(model[k][index].type)) {
+
+          const curModel = (() => {
+            if (model[k][index]) {
+              return model[k][index];
+            }
+
+            return model[k][0];
+          })();
+          if (curModel.type && [String, Number, Boolean].includes(curModel.type)) {
 
             // 说明是基础类型
             let val = item;
             if (!item) {
-              val = model[k][index].default;
+              val = curModel.default;
             }
 
             newData[k][index] = val;
@@ -43,14 +51,14 @@ class Teacher {
           // 如果当前这一项是对象
           if (isObject(item)) {
             newData[k][index] = {};
-            this.doFix(model[k][index], item, newData[k][index]);
+            this.doFix(curModel, item, newData[k][index]);
             return;
           }
 
           // 如果当前这一项是数组
           if (Array.isArray(item)) {
-            newData[index] = [];
-            this.doFix(model[k][0], item, newData[index]);
+            newData[k][index] = [];
+            this.doFix(model[k][0], item, newData[k][index]);
             return;
           }
 
@@ -64,10 +72,10 @@ class Teacher {
         newData[k] = v.default;
         continue;
       }
-      console.log(v);
+      // console.log(v);
       if (!v.type) {
         newData[k] = {};
-        this.doFix({...v}, sourceData[k], newData[k]);
+        this.doFix(v, sourceData[k], newData[k]);
         continue;
       }
 
@@ -110,7 +118,7 @@ var a = {
       }
     },
     {
-      a: undefined,
+      a: 23333333,
       b: 2,
       c: 3,
       d: [undefined, 2, {e: 2}],
@@ -171,10 +179,6 @@ const model = {
           e: {
             type: Number,
             default : 1233,
-          },
-          d: {
-            type: Number,
-            default: 332
           }
         },
       ],

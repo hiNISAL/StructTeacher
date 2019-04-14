@@ -1,1 +1,3 @@
-# StructTeacher
+# struct-teacher
+
+用于校验数据的处理机。`struct-teacher`可以利用提前建立好的数据模型对数据进行对比，达到数据正确化，同时会收集到所有错误数据，以供错误定位等。
