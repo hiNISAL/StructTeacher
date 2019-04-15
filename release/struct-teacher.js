@@ -72,7 +72,7 @@
           newData[k] = v.default;
           continue;
         }
-        console.log(v);
+
         if (!v.type) {
           newData[k] = {};
           this.doFix({...v}, sourceData[k], newData[k]);
