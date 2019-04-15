@@ -8,5 +8,116 @@
 </head>
 <body>
   <script src="./release/struct-teacher.js"></script>
+  <script>
+
+    var a = {
+      url: undefined,
+      count: 1,
+      name: {
+        first: undefined,
+        last: [undefined, 'i', 's', 'a', 'l']
+      },
+      list: [
+        {
+          a: undefined,
+          b: 2,
+          c: 3,
+          d: [undefined, 2, {e: 2}],
+          info: {
+            name: undefined,
+            age: 17
+          }
+        },
+        {
+          a: 23333333,
+          b: 2,
+          c: 3,
+          d: [undefined, 2, {e: 2}],
+          info: {
+            name: 'abc',
+            age: 17
+          }
+        },
+      ]
+    }
+
+    const model = {
+      url: {
+        type: String,
+        default: 'none',
+      },
+      count: {
+        type: String,
+        default: '',
+      },
+      name: {
+        first: {
+          type: String,
+          default: 'abc'
+        },
+        last: [
+          {
+            type: String,
+            default: '0',
+            all: true,
+          }
+        ]
+      },
+      list: [
+        {
+          a: {
+            type: Number,
+            default: 3,
+          },
+          b: {
+            type: Number,
+            default: 0,
+          },
+          c: {
+            type: Number,
+            default: 0,
+          },
+          d: [
+            {
+              type: Number,
+              default: 233,
+            },
+            {
+              type: Number,
+              default: 223,
+            },
+            {
+              e: {
+                type: Number,
+                default : 1233,
+              }
+            },
+          ],
+          info: {
+            type: Object,
+            default: {
+              name: 'name',
+              age: 0,
+            },
+            name: {
+              type: String,
+              default: 'namer',
+            },
+            age: {
+              type: Number,
+              default: 0,
+            },
+          },
+        }
+      ]
+    }
+
+    const fac = StructTeacher(model, a);
+
+    console.log(fac);
+
+    fac.fix();
+
+  </script>
 </body>
 </html>
